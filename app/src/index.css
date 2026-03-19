@@ -1,34 +1,76 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand: #646cff;
-  --color-brand-hover: #535bf2;
-  --color-bg: #121212;
-  --color-surface: #1e1e1e;
-  --color-surface-hover: #2c2c2c;
-  --color-text: rgba(255, 255, 255, 0.87);
-  --color-text-muted: rgba(255, 255, 255, 0.60);
-  --color-border: #333333;
+  --color-brand: #06b6d4;
+  --color-brand-hover: #0891b2;
+  --color-bg: #030712;
+  --color-surface: #0f172a;
+  --color-surface-hover: #1e293b;
+  --color-text: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-border: #1e293b;
 }
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: dark;
-  color: var(--color-text);
-  background-color: var(--color-bg);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+  body {
+    @apply bg-bg text-text antialiased selection:bg-brand/30 selection:text-brand;
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+  }
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: var(--color-bg);
+@layer utilities {
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s linear infinite;
+  }
+
+  .mask-radial {
+    mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes bar-glide {
+
+  0%,
+  100% {
+    transform: translateY(-20%);
+    opacity: 0.1;
+  }
+
+  50% {
+    transform: translateY(20%);
+    opacity: 0.3;
+  }
 }
