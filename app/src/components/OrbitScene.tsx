@@ -129,9 +129,7 @@ const Stars = ({ count = 500, size = 0.1 }) => {
             <bufferGeometry>
                 <bufferAttribute
                     attach="attributes-position"
-                    count={count}
-                    array={positions}
-                    itemSize={3}
+                    args={[positions, 3]}
                 />
             </bufferGeometry>
             <pointsMaterial color="#ffffff" size={size} transparent opacity={0.2} sizeAttenuation />

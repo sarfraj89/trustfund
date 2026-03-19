@@ -4,7 +4,7 @@ import { Program, AnchorProvider } from '@coral-xyz/anchor';
 import { PublicKey } from '@solana/web3.js';
 import type { Trustfund } from '../idl/trustfund';
 import idl from '../idl/trustfund.json';
-import { useRole } from '../context/RoleContext';
+import { useAuth } from '../context/AuthContext';
 import { SlideOver } from '../components/SlideOver';
 import { InitializeProjectForm } from '../components/InitializeProjectForm';
 import { FundMilestoneForm } from '../components/FundMilestoneForm';
@@ -20,7 +20,8 @@ interface ProjectData {
 export const Pipeline = () => {
     const { connection } = useConnection();
     const { publicKey, signTransaction, signAllTransactions } = useWallet();
-    const { role, permissions } = useRole();
+    const { currentUser, permissions } = useAuth();
+    const role = currentUser?.role || 'Guest';
     const [projects, setProjects] = useState<ProjectData[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -136,9 +137,9 @@ export const Pipeline = () => {
             <div className="bg-surface p-4 rounded-xl border border-border flex flex-wrap items-center gap-6">
                 <div className="flex items-center gap-2">
                     <span className="text-[10px] uppercase font-bold text-text-muted">Role:</span>
-                    <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${role === 'Admin' ? 'bg-purple-dark/20 text-purple-dark border border-purple-dark/30' :
-                        role === 'Client' ? 'bg-teal-dark/20 text-teal-dark border border-teal-dark/30' :
-                            role === 'Freelancer' ? 'bg-amber-dark/20 text-amber-dark border border-amber-dark/30' :
+                    <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${role === 'admin' ? 'bg-purple-dark/20 text-purple-dark border border-purple-dark/30' :
+                        role === 'client' ? 'bg-teal-dark/20 text-teal-dark border border-teal-dark/30' :
+                            role === 'freelancer' ? 'bg-amber-dark/20 text-amber-dark border border-amber-dark/30' :
                                 'bg-red-dark/20 text-red-dark border border-red-dark/30'
                         }`}>
                         {role}
